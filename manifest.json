@@ -1,0 +1,23 @@
+{
+  "name": "欧元人民币汇率利润计算器",
+  "short_name": "欧汇利润计算器",
+  "description": "实时汇率，欧元成本算人民币成本+双币种卖价，自带数字键盘",
+  "start_url": "/",
+  "display": "standalone",
+  "fullscreen": true,
+  "background_color": "#f5f7fa",
+  "theme_color": "#165DFF",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://picsum.photos/192/192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://picsum.photos/512/512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
