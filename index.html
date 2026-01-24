@@ -54,7 +54,7 @@
     <!-- 输入区域 -->
     <div class="input-item">
       <label>欧元成本</label>
-      <input type="text" id="eurCost" readonly placeholder="0.00" />
+      <input type="text" id="eurCost" placeholder="0.00" />
     </div>
     <div class="input-item">
       <label>人民币成本</label>
@@ -193,6 +193,8 @@
     profitRate.addEventListener('input', calculateAll);
 
     function clear_all() {
+      console.log("focus");
+
       eurCost.value = '';
       cnyCost.value = '';
       eurSell.value = '';
