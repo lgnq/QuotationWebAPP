@@ -64,6 +64,14 @@
       <label>利润率(%)</label>
       <input type="number" id="profitRate" value="15" readonly placeholder="请输入利润率" />
     </div>
+    <div class="input-item">
+      <label>欧元卖价</label>
+      <input type="text" id="eurSell" readonly placeholder="0.00" />
+    </div>
+    <div class="input-item">
+      <label>人民币卖价</label>
+      <input type="text" id="cnySell" readonly placeholder="0.00" />
+    </div>    
     <!-- 计算结果 -->
     <div style="flex: 1;"></div>
     <div class="result-list">
@@ -71,14 +79,14 @@
         <span class="result-label">人民币成本</span>
         <span class="result-value" id="cnyCost">0.00</span>
       </div> -->
-      <div class="result-item">
+      <!-- <div class="result-item">
         <span class="result-label">欧元卖价</span>
         <span class="result-value" id="eurSell">0.00</span>
       </div>
       <div class="result-item">
         <span class="result-label">人民币卖价</span>
         <span class="result-value" id="cnySell">0.00</span>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -171,15 +179,13 @@
 
       // 计算各项值
       const cnyCostVal = (eurCostVal * rate).toFixed(2); // 人民币成本
-      const eurProfitVal = (eurCostVal * profitRateVal / 100).toFixed(2); // 欧元利润
       const eurSellVal = (eurCostVal + parseFloat(eurProfitVal)).toFixed(2); // 欧元卖价
       const cnySellVal = (parseFloat(eurSellVal) * rate).toFixed(2); // 人民币卖价
 
       // 渲染结果
       cnyCost.value = cnyCostVal;
-      eurProfit.textContent = eurProfitVal;
-      eurSell.textContent = eurSellVal;
-      cnySell.textContent = cnySellVal;
+      eurSell.value = eurSellVal;
+      cnySell.value = cnySellVal;
     }
 
     // 利润率变化实时计算
