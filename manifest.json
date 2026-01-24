@@ -1,7 +1,7 @@
 {
-  "name": "欧元人民币汇率利润计算器",
-  "short_name": "欧汇利润计算器",
-  "description": "实时汇率，欧元成本算人民币成本+双币种卖价，自带数字键盘",
+  "name": "Quote Web APP",
+  "short_name": "Quote APP",
+  "description": "A quote app for marketing manager",
   "start_url": "/",
   "display": "standalone",
   "fullscreen": true,
