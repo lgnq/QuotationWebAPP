@@ -192,6 +192,15 @@
     // 利润率变化实时计算
     profitRate.addEventListener('input', calculateAll);
 
+    function clear_all() {
+      eurCost.value = '';
+      cnyCost.value = '';
+      eurSell.value = '';
+      cnySell.value = '';
+    }
+
+    eurCost.addEventListener('focus', clear_all);
+
     // 注册Service Worker（PWA离线缓存）
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
