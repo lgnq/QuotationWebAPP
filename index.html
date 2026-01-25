@@ -60,7 +60,7 @@
     </div>
     <div class="input-item">
       <label>美元成本</label>
-      <input type="text" id="usdCost" readonly placeholder="0.000"/>
+      <input type="text" id="usdCost" readonly placeholder="0.000" onfocus="focus_usd_cost()"/>
     </div>    
     <div class="input-item">
       <label>人民币成本</label>
@@ -89,7 +89,7 @@
     </div>
     <div class="input-item">
       <label>美元卖价</label>
-      <input type="text" id="usdSell" readonly placeholder="0.000" />
+      <input type="text" id="usdSell" readonly placeholder="0.000" onfocus="focus_usd_sell()"/>
     </div>    
     <div class="input-item">
       <label>人民币卖价</label>
@@ -140,8 +140,9 @@
     const eurCost = document.getElementById('eurCost');
     const disti_margin = document.getElementById('disti_margin');
     const cnyCost = document.getElementById('cnyCost');
-    const eurProfit = document.getElementById('eurProfit');
+    const usdCost = document.getElementById('usdCost');
     const eurSell = document.getElementById('eurSell');
+    const usdSell = document.getElementById('usdSell');
     const cnySell = document.getElementById('cnySell');
     const cnyvatSell = document.getElementById('cnyvatSell');
     const clearKey = document.getElementById('clearKey');
@@ -153,12 +154,22 @@
 
     let eur_cost = 0;
     let eur_sell = 0;
+    let usd_cost = 0;
+    let usd_sell = 0;
     let cny_cost = 0;
     let cny_sell = 0;
     let cny_vat_sell = 0;
+    
     let margin = 0;
+    
     let eur2cny = 0;
+    let eur2usd = 0;
+    
     let cny2eur = 0;
+    let cny2usd = 0;
+
+    let usd2eur = 0;
+    let usd2cny = 0;
 
     // 初始化：拉取实时汇率
     window.onload = () => {
@@ -177,8 +188,12 @@
         .then(res => res.json())
         .then(data => {
           if (data.rates && data.rates.CNY) {
+            eur2cny = parseFloat(data.rates.CNY).toFixed(fixed_number);
+            eur2usd = parseFloat(data.rates.USD).toFixed(fixed_number);
+            
             currentRate = parseFloat(data.rates.CNY).toFixed(fixed_number);
             eurCnyRate.textContent = currentRate;
+            
             date.textContent = data.date;
           } else {
             eurCnyRate.textContent = currentRate;
@@ -219,24 +234,29 @@
       if (currentInput.id == 'eurCost')
       {
         eur_cost = parseFloat(currentInput.value) || 0;
-        eur2cny = parseFloat(currentRate) || 0;
+        usd_cost = (eur_cost * eur2usd).toFixed(fixed_number);
+        cny_cost = (eur_cost * eur2cny).toFixed(fixed_number);
 
-        // 计算各项值
-        cny_cost = (eur_cost * eur2cny).toFixed(fixed_number); // 人民币成本
         eur_sell = (eur_cost / (1-margin)).toFixed(fixed_number); // 欧元卖价
+        usd_sell = (usd_cost / (1-margin)).toFixed(fixed_number);
         cny_sell = (cny_cost / (1-margin)).toFixed(fixed_number); // 人民币卖价
+        
         cny_vat_sell = (cny_sell * 1.13).toFixed(fixed_number);
 
         // 渲染结果
+        usdCost.value = usd_cost;
         cnyCost.value = cny_cost;
+
         eurSell.value = eur_sell;
-        cnySell.value = cny_sell;        
+        usdSell.value = usd_sell;
+        cnySell.value = cny_sell;
+
         cnyvatSell.value = cny_vat_sell;        
       }
       else if (currentInput.id == 'cnyCost')
       {
         cny_cost = parseFloat(currentInput.value) || 0;
-        eur2cny = parseFloat(currentRate) || 0;
+        // eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         eur_cost = (cny_cost / eur2cny).toFixed(fixed_number); // 人民币成本
@@ -253,7 +273,7 @@
       else if (currentInput.id == 'eurSell')
       {
         eur_sell = parseFloat(currentInput.value) || 0;
-        eur2cny = parseFloat(currentRate) || 0;
+        // eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         eur_cost = (eur_sell * (1 - margin)).toFixed(fixed_number); // 人民币成本
@@ -270,7 +290,7 @@
       else if (currentInput.id == 'cnySell')
       {
         cny_sell = parseFloat(currentInput.value) || 0;
-        eur2cny = parseFloat(currentRate) || 0;
+        // eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         eur_sell = (cny_sell / eur2cny).toFixed(fixed_number); // 人民币成本
@@ -287,7 +307,7 @@
       else if (currentInput.id == 'cnyvatSell')
       {
         cny_vat_sell = parseFloat(currentInput.value) || 0;
-        eur2cny = parseFloat(currentRate) || 0;
+        // eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         cny_sell = (cny_vat_sell / 1.13).toFixed(fixed_number);
@@ -322,19 +342,41 @@
 
     function focus_eur_cost() {
       eurCost.value = '';
+      usdCost.value = '';
       cnyCost.value = '';
+
       eurSell.value = '';
+      usdSell.value = '';
       cnySell.value = '';
+
       cnyvatSell.value = '';
 
       currentInput = eurCost;
     }
 
+    function focus_usd_cost() {
+      eurCost.value = '';
+      usdCost.value = '';
+      cnyCost.value = '';
+
+      eurSell.value = '';
+      usdSell.value = '';
+      cnySell.value = '';
+
+      cnyvatSell.value = '';
+
+      currentInput = usdCost;
+    }    
+
     function focus_cny_cost() {
       eurCost.value = '';
+      usdCost.value = '';
       cnyCost.value = '';
+
       eurSell.value = '';
+      usdSell.value = '';
       cnySell.value = '';
+
       cnyvatSell.value = '';
 
       currentInput = cnyCost;
@@ -342,19 +384,41 @@
 
     function focus_eur_sell() {
       eurCost.value = '';
+      usdCost.value = '';
       cnyCost.value = '';
+
       eurSell.value = '';
+      usdSell.value = '';
       cnySell.value = '';
+
       cnyvatSell.value = '';
 
       currentInput = eurSell;
     }
 
+    function focus_usd_sell() {
+      eurCost.value = '';
+      usdCost.value = '';
+      cnyCost.value = '';
+
+      eurSell.value = '';
+      usdSell.value = '';
+      cnySell.value = '';
+
+      cnyvatSell.value = '';
+
+      currentInput = usdSell;
+    }
+
     function focus_cny_sell() {
       eurCost.value = '';
+      usdCost.value = '';
       cnyCost.value = '';
+
       eurSell.value = '';
+      usdSell.value = '';
       cnySell.value = '';
+
       cnyvatSell.value = '';
 
       currentInput = cnySell;
@@ -362,9 +426,13 @@
 
     function focus_cny_vat_sell() {
       eurCost.value = '';
+      usdCost.value = '';
       cnyCost.value = '';
+
       eurSell.value = '';
+      usdSell.value = '';
       cnySell.value = '';
+
       cnyvatSell.value = '';
 
       currentInput = cnyvatSell;
