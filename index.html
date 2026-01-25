@@ -54,11 +54,11 @@
     <!-- 输入区域 -->
     <div class="input-item">
       <label>欧元成本</label>
-      <input type="text" id="eurCost" readonly/>
+      <input type="text" id="eurCost" readonly placeholder="0.00"/>
     </div>
     <div class="input-item">
       <label>人民币成本</label>
-      <input type="text" id="cnyCost" readonly/>
+      <input type="text" id="cnyCost" readonly placeholder="0.00"/>
     </div>
     <div class="input-item">
       <label>利润率(%)</label>
@@ -181,8 +181,6 @@
 
     // 核心计算逻辑
     function calculateAll() {
-      console.log(currentInput.id);
-
       if (currentInput.id == 'eurCost')
       {
         eur_cost = parseFloat(currentInput.value) || 0;
