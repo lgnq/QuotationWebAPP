@@ -56,7 +56,7 @@
     <!-- 输入区域 -->
     <div class="input-item">
       <label>欧元成本</label>
-      <input type="text" id="eurCost" readonly placeholder="0.000"/>
+      <input type="text" id="eurCost" readonly placeholder="0.000" onfocus="focus_eur_cost()"/>
     </div>
     <div class="input-item">
       <label>美元成本</label>
@@ -64,7 +64,7 @@
     </div>    
     <div class="input-item">
       <label>人民币成本</label>
-      <input type="text" id="cnyCost" readonly placeholder="0.000"/>
+      <input type="text" id="cnyCost" readonly placeholder="0.000" onfocus="focus_cny_cost()"/>
     </div>
     <div class="input-item">
       <label>利润率(%)</label>
@@ -85,7 +85,7 @@
     </div>
     <div class="input-item">
       <label>欧元卖价</label>
-      <input type="text" id="eurSell" readonly placeholder="0.000" />
+      <input type="text" id="eurSell" readonly placeholder="0.000" onfocus="focus_eur_sell()"/>
     </div>
     <div class="input-item">
       <label>美元卖价</label>
@@ -93,11 +93,11 @@
     </div>    
     <div class="input-item">
       <label>人民币卖价</label>
-      <input type="text" id="cnySell" readonly placeholder="0.000" />
+      <input type="text" id="cnySell" readonly placeholder="0.000" onfocus="focus_cny_sell()"/>
     </div>    
     <div class="input-item">
       <label>人民币含税价</label>
-      <input type="text" id="cnyvatSell" readonly placeholder="0.000" />
+      <input type="text" id="cnyvatSell" readonly placeholder="0.000" onfocus="focus_cny_vat_sell()"/>
     </div>        
     <!-- 计算结果 -->
     <div style="flex: 1;"></div>
@@ -512,12 +512,6 @@
 
       currentInput = cnyvatSell;
     }    
-
-    eurCost.addEventListener("focus", focus_eur_cost);
-    cnyCost.addEventListener("focus", focus_cny_cost);
-    eurSell.addEventListener("focus", focus_eur_sell);
-    cnySell.addEventListener("focus", focus_cny_sell);
-    cnyvatSell.addEventListener("focus", focus_cny_vat_sell);
 
     // 注册Service Worker（PWA离线缓存）
     if ('serviceWorker' in navigator) {
