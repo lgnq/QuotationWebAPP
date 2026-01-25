@@ -24,6 +24,7 @@
     .input-item label { width: 90px; font-size: 15px; color: #444; }
     .input-item input { flex: 1; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 17px; text-align: right; outline: none; }
     .input-item input:focus { border-color: #165DFF; }
+    .input-item select { flex: 1; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 17px; text-align: right; outline: none; }
     .result-list { margin-top: 20px; }
     .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
     .result-item:last-child { border-bottom: none; }
@@ -63,7 +64,20 @@
     </div>
     <div class="input-item">
       <label>利润率(%)</label>
-      <input type="number" id="profitRate" value="15" readonly placeholder="请输入利润率" />
+      <!-- <input type="number" id="profitRate" value="15" readonly placeholder="请输入利润率" /> -->
+      <select id="disti_margin" onchange="disti_margin_onchange()">
+        <option value=0.05>5%</option>
+        <option value=0.06>6%</option>
+        <option value=0.07>7%</option>
+        <option value=0.08>8%</option>
+        <option value=0.09>9%</option>
+        <option value=0.10 selected>10%</option>
+        <option value=0.11>11%</option>
+        <option value=0.12>12%</option>
+        <option value=0.13>13%</option>
+        <option value=0.14>14%</option>
+        <option value=0.15>15%</option>
+      </select>
     </div>
     <div class="input-item">
       <label>欧元卖价</label>
@@ -74,7 +88,7 @@
       <input type="text" id="cnySell" readonly placeholder="0.00" />
     </div>    
     <div class="input-item">
-      <label>人民币含税卖价</label>
+      <label>人民币含税价</label>
       <input type="text" id="cnyvatSell" readonly placeholder="0.00" />
     </div>        
     <!-- 计算结果 -->
@@ -116,7 +130,7 @@
     const eurCnyRate = document.getElementById('eurCnyRate');
     const refreshRate = document.getElementById('refreshRate');
     const eurCost = document.getElementById('eurCost');
-    const profitRate = document.getElementById('profitRate');
+    const disti_margin = document.getElementById('disti_margin');
     const cnyCost = document.getElementById('cnyCost');
     const eurProfit = document.getElementById('eurProfit');
     const eurSell = document.getElementById('eurSell');
@@ -138,8 +152,11 @@
 
     // 初始化：拉取实时汇率
     window.onload = () => {
+      margin = parseFloat(disti_margin.value) || 0;
+      console.log(margin);
+
       getRealTimeRate();
-      calculateAll();
+      // calculateAll();
     };
 
     // 拉取实时欧元兑人民币汇率（使用免费公开API，无跨域）
@@ -192,13 +209,12 @@
       if (currentInput.id == 'eurCost')
       {
         eur_cost = parseFloat(currentInput.value) || 0;
-        margin = parseFloat(profitRate.value) || 0;
         eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         cny_cost = (eur_cost * eur2cny).toFixed(2); // 人民币成本
-        eur_sell = (eur_cost / (1-parseFloat(margin)/100)).toFixed(2); // 欧元卖价
-        cny_sell = (cny_cost / (1-parseFloat(margin)/100)).toFixed(2); // 人民币卖价
+        eur_sell = (eur_cost / (1-margin)).toFixed(2); // 欧元卖价
+        cny_sell = (cny_cost / (1-margin)).toFixed(2); // 人民币卖价
         cny_vat_sell = (cny_sell * 1.13).toFixed(2);
 
         // 渲染结果
@@ -210,13 +226,12 @@
       else if (currentInput.id == 'cnyCost')
       {
         cny_cost = parseFloat(currentInput.value) || 0;
-        margin = parseFloat(profitRate.value) || 0;
         eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         eur_cost = (cny_cost / eur2cny).toFixed(2); // 人民币成本
-        eur_sell = (eur_cost / (1 - margin/100)).toFixed(2); // 欧元卖价
-        cny_sell = (cny_cost / (1 - margin/100)).toFixed(2); // 人民币卖价
+        eur_sell = (eur_cost / (1 - margin)).toFixed(2); // 欧元卖价
+        cny_sell = (cny_cost / (1 - margin)).toFixed(2); // 人民币卖价
         cny_vat_sell = (cny_sell * 1.13).toFixed(2);
 
         // 渲染结果
@@ -228,13 +243,12 @@
       else if (currentInput.id == 'eurSell')
       {
         eur_sell = parseFloat(currentInput.value) || 0;
-        margin = parseFloat(profitRate.value) || 0;
         eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
-        eur_cost = (eur_sell * (1 - margin / 100)).toFixed(2); // 人民币成本
+        eur_cost = (eur_sell * (1 - margin)).toFixed(2); // 人民币成本
         cny_sell = (eur_sell * eur2cny).toFixed(2); // 人民币卖价
-        cny_cost = (cny_sell * (1 - margin / 100)).toFixed(2); 
+        cny_cost = (cny_sell * (1 - margin)).toFixed(2); 
         cny_vat_sell = (cny_sell * 1.13).toFixed(2);
 
         // 渲染结果
@@ -246,13 +260,12 @@
       else if (currentInput.id == 'cnySell')
       {
         cny_sell = parseFloat(currentInput.value) || 0;
-        margin = parseFloat(profitRate.value) || 0;
         eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         eur_sell = (cny_sell / eur2cny).toFixed(2); // 人民币成本
-        eur_cost = (eur_sell * (1 - margin / 100)).toFixed(2); // 人民币卖价
-        cny_cost = (cny_sell * (1 - margin / 100)).toFixed(2); 
+        eur_cost = (eur_sell * (1 - margin)).toFixed(2); // 人民币卖价
+        cny_cost = (cny_sell * (1 - margin)).toFixed(2); 
         cny_vat_sell = (cny_sell * 1.13).toFixed(2);
 
         // 渲染结果
@@ -264,14 +277,13 @@
       else if (currentInput.id == 'cnyvatSell')
       {
         cny_vat_sell = parseFloat(currentInput.value) || 0;
-        margin = parseFloat(profitRate.value) || 0;
         eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
         cny_sell = (cny_vat_sell / 1.13).toFixed(2);
         eur_sell = (cny_sell / eur2cny).toFixed(2); // 人民币成本
-        eur_cost = (eur_sell * (1 - margin / 100)).toFixed(2); // 人民币卖价
-        cny_cost = (cny_sell * (1 - margin / 100)).toFixed(2); 
+        eur_cost = (eur_sell * (1 - margin)).toFixed(2); // 人民币卖价
+        cny_cost = (cny_sell * (1 - margin)).toFixed(2); 
 
         // 渲染结果
         eurCost.value = eur_cost;
@@ -282,8 +294,21 @@
       }      
     }
 
-    // 利润率变化实时计算
-    profitRate.addEventListener('input', calculateAll);
+    function disti_margin_onchange(){
+      console.log(disti_margin.value);
+      margin = parseFloat(disti_margin.value)
+
+      eur_cost = parseFloat(eurCost.value);
+      cny_cost = parseFloat(cnyCost.value);
+
+      eur_sell = (eur_cost / (1-margin)).toFixed(2); // 欧元卖价
+      cny_sell = (cny_cost / (1-margin)).toFixed(2); // 人民币卖价
+      cny_vat_sell = (cny_sell * 1.13).toFixed(2);
+
+      cnySell.value = cny_sell;
+      eurSell.value = eur_sell;        
+      cnyvatSell.value = cny_vat_sell;        
+    }
 
     function focus_eur_cost() {
       eurCost.value = '';
