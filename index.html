@@ -54,11 +54,11 @@
     <!-- 输入区域 -->
     <div class="input-item">
       <label>欧元成本</label>
-      <input type="text" id="eurCost" placeholder="0.00" />
+      <input type="text" id="eurCost"/>
     </div>
     <div class="input-item">
       <label>人民币成本</label>
-      <input type="text" id="cnyCost" readonly placeholder="0.00" />
+      <input type="text" id="cnyCost" readonly/>
     </div>
     <div class="input-item">
       <label>利润率(%)</label>
@@ -119,7 +119,7 @@
     const clearKey = document.getElementById('clearKey');
     const keys = document.querySelectorAll('.key[data-val]');
     let currentRate = 7.80; // 本地默认汇率（无网兜底）
-    const currentInput = eurCost; // 唯一输入框，固定欧元成本
+    let currentInput = eurCost; // 唯一输入框，固定欧元成本
 
     // 初始化：拉取实时汇率
     window.onload = () => {
@@ -158,7 +158,7 @@
         // 拼接输入值
         currentInput.value += val;
         // 实时计算
-        calculateAll();
+        // calculateAll();
       });
     });
 
@@ -192,16 +192,44 @@
     // 利润率变化实时计算
     profitRate.addEventListener('input', calculateAll);
 
-    function clear_all() {
-      console.log("focus");
+    function focus_eur_cost() {
+      console.log(currentInput.value);
+      const element = document.activeElement;  
+      if (element == eurCost)
+      {
+        console.log('OK');
+      } 
+      
+      console.log(element);      
+      // currentInput.value = '';
+      // calculateAll();
 
       eurCost.value = '';
       cnyCost.value = '';
       eurSell.value = '';
       cnySell.value = '';
+
+      currentInput = eurCost;
     }
 
-    eurCost.addEventListener('focus', clear_all);
+    function focus_cny_cost() {
+      console.log(currentInput.value);    
+      const element = document.activeElement.tagName;  
+      console.log(element);      
+
+      // currentInput.value = '';
+      // calculateAll();
+
+      eurCost.value = '';
+      cnyCost.value = '';
+      eurSell.value = '';
+      cnySell.value = '';
+
+      currentInput = cnyCost;
+    }
+
+    eurCost.addEventListener("focus", focus_eur_cost);
+    cnyCost.addEventListener("focus", focus_cny_cost);
 
     // 注册Service Worker（PWA离线缓存）
     if ('serviceWorker' in navigator) {
