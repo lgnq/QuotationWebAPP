@@ -2,7 +2,7 @@
   "name": "Quote Web APP",
   "short_name": "Quote APP",
   "description": "A quote app for marketing manager",
-  "start_url": "/",
+  "start_url": "/QuotationWebAPP/",
   "display": "standalone",
   "fullscreen": true,
   "background_color": "#f5f7fa",
