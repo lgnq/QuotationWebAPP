@@ -47,6 +47,7 @@
     <div class="rate-wrap">
       <div class="rate-text">Exchange Rate（1 EUR = ? CNY）</div>
       <div>
+        <span id="date" class="rate-val"></span>
         <span id="eurCnyRate" class="rate-val">7.80</span>
         <button class="refresh-btn" id="refreshRate">刷新</button>
       </div>
@@ -151,6 +152,7 @@
           if (data.rates && data.rates.CNY) {
             currentRate = parseFloat(data.rates.CNY).toFixed(2);
             eurCnyRate.textContent = currentRate;
+            date.textContent = data.date;
           } else {
             eurCnyRate.textContent = currentRate;
           }
