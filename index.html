@@ -45,7 +45,7 @@
     <div class="title">Quote Web APP</div>
     <!-- 实时汇率区域 -->
     <div class="rate-wrap">
-      <div class="rate-text">实时汇率（1 EUR = ? CNY）</div>
+      <div class="rate-text">Exchange Rate（1 EUR = ? CNY）</div>
       <div>
         <span id="eurCnyRate" class="rate-val">7.80</span>
         <button class="refresh-btn" id="refreshRate">刷新</button>
@@ -54,7 +54,7 @@
     <!-- 输入区域 -->
     <div class="input-item">
       <label>欧元成本</label>
-      <input type="text" id="eurCost"/>
+      <input type="text" id="eurCost" readonly/>
     </div>
     <div class="input-item">
       <label>人民币成本</label>
@@ -158,7 +158,7 @@
         // 拼接输入值
         currentInput.value += val;
         // 实时计算
-        // calculateAll();
+        calculateAll();
       });
     });
 
@@ -173,20 +173,22 @@
 
     // 核心计算逻辑
     function calculateAll() {
-      const eurCostVal = parseFloat(currentInput.value) || 0;
-      const profitRateVal = parseFloat(profitRate.value) || 0;
-      const rate = parseFloat(currentRate) || 0;
+      console.log(currentInput.id);
 
-      // 计算各项值
-      const cnyCostVal = (eurCostVal * rate).toFixed(2); // 人民币成本
-      const eurProfitVal = (eurCostVal * profitRateVal / 100).toFixed(2); // 欧元利润
-      const eurSellVal = (eurCostVal + parseFloat(eurProfitVal)).toFixed(2); // 欧元卖价
-      const cnySellVal = (parseFloat(eurSellVal) * rate).toFixed(2); // 人民币卖价
+      // const eurCostVal = parseFloat(currentInput.value) || 0;
+      // const profitRateVal = parseFloat(profitRate.value) || 0;
+      // const rate = parseFloat(currentRate) || 0;
 
-      // 渲染结果
-      cnyCost.value = cnyCostVal;
-      eurSell.value = eurSellVal;
-      cnySell.value = cnySellVal;
+      // // 计算各项值
+      // const cnyCostVal = (eurCostVal * rate).toFixed(2); // 人民币成本
+      // const eurProfitVal = (eurCostVal * profitRateVal / 100).toFixed(2); // 欧元利润
+      // const eurSellVal = (eurCostVal + parseFloat(eurProfitVal)).toFixed(2); // 欧元卖价
+      // const cnySellVal = (parseFloat(eurSellVal) * rate).toFixed(2); // 人民币卖价
+
+      // // 渲染结果
+      // cnyCost.value = cnyCostVal;
+      // eurSell.value = eurSellVal;
+      // cnySell.value = cnySellVal;
     }
 
     // 利润率变化实时计算
@@ -195,15 +197,12 @@
     function focus_eur_cost() {
       console.log(currentInput.value);
       const element = document.activeElement;  
-      if (element == eurCost)
+      if (element.id == "eurCost")
       {
         console.log('OK');
+        console.log(element.id);      
       } 
       
-      console.log(element);      
-      // currentInput.value = '';
-      // calculateAll();
-
       eurCost.value = '';
       cnyCost.value = '';
       eurSell.value = '';
@@ -216,9 +215,6 @@
       console.log(currentInput.value);    
       const element = document.activeElement.tagName;  
       console.log(element);      
-
-      // currentInput.value = '';
-      // calculateAll();
 
       eurCost.value = '';
       cnyCost.value = '';
