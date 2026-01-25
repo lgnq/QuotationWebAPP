@@ -205,8 +205,8 @@
 
         // 计算各项值
         eur_cost = (cny_cost / eur2cny).toFixed(2); // 人民币成本
-        eur_sell = (eur_cost / (1-parseFloat(margin)/100)).toFixed(2); // 欧元卖价
-        cny_sell = (cny_cost / (1-parseFloat(margin)/100)).toFixed(2); // 人民币卖价
+        eur_sell = (eur_cost / (1 - margin/100)).toFixed(2); // 欧元卖价
+        cny_sell = (cny_cost / (1 - margin/100)).toFixed(2); // 人民币卖价
 
         // 渲染结果
         eurCost.value = eur_cost;
@@ -220,9 +220,9 @@
         eur2cny = parseFloat(currentRate) || 0;
 
         // 计算各项值
-        eur_cost = (eur_sell * margin / 100).toFixed(2); // 人民币成本
+        eur_cost = (eur_sell * (1 - margin / 100)).toFixed(2); // 人民币成本
         cny_sell = (eur_sell * eur2cny).toFixed(2); // 人民币卖价
-        cny_cost = (cny_sell * margin / 100).toFixed(2); 
+        cny_cost = (cny_sell * (1 - margin / 100)).toFixed(2); 
 
         // 渲染结果
         eurCost.value = eur_cost;
@@ -237,8 +237,8 @@
 
         // 计算各项值
         eur_sell = (cny_sell / eur2cny).toFixed(2); // 人民币成本
-        eur_cost = (eur_sell * margin / 100).toFixed(2); // 人民币卖价
-        cny_cost = (cny_sell * margin / 100).toFixed(2); 
+        eur_cost = (eur_sell * (1 - margin / 100)).toFixed(2); // 人民币卖价
+        cny_cost = (cny_sell * (1 - margin / 100)).toFixed(2); 
 
         // 渲染结果
         eurCost.value = eur_cost;
