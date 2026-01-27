@@ -1,37 +1,72 @@
-// 缓存版本
-const CACHE_NAME = 'eur-cny-calc-pwa-v1';
-// 需缓存的核心文件
-const CACHE_ASSETS = ['/', '/index.html', '/manifest.json'];
 
-// 安装：缓存核心文件
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(CACHE_ASSETS);
-    })
-  );
-});
+var cacheName = 'calci-cache';
+var cacheAssets = [
+	'/index.html',
+	'/manifest.json',
+	'/',
+];
 
-// 激活：清理旧缓存
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
-    })
-  );
-});
+// Call install Event
+self.addEventListener('install', e => {
+	// Wait until promise is finished
+	e.waitUntil(
+		caches.open(cacheName)
+		.then(cache => {
+			console.log(`Service Worker: Caching Files: ${cache}`);
+			cache.addAll(cacheAssets)
+				// When everything is set
+				.then(() => self.skipWaiting())
+		})
+	);
+})
 
-// 拦截请求：离线返回缓存，实时汇率请求走网络
-self.addEventListener('fetch', (e) => {
-  // 汇率API请求不缓存，走网络
-  if (e.request.url.includes('exchangerate-api')) {
-    e.respondWith(fetch(e.request).catch(() => new Response(JSON.stringify({rates: {CNY:7.80}}))));
-  } else {
-    // 其他文件优先走缓存
-    e.respondWith(
-      caches.match(e.request).then(res => res || fetch(e.request))
-    );
-  }
+
+// Call Activate Event
+self.addEventListener('activate', e => {
+	console.log('Service Worker: Activated');
+	// Clean up old caches by looping through all of the
+	// caches and deleting any old caches or caches that
+	// are not defined in the list
+	e.waitUntil(
+		caches.keys().then(cacheNames => {
+			return Promise.all(
+				cacheNames.map(
+					cache => {
+						if (cache !== cacheName) {
+							console.log('Service Worker: Clearing Old Cache');
+							return caches.delete(cache);
+						}
+					}
+				)
+			)
+		})
+	);
+})
+
+
+var cacheName = 'calci-cache';
+
+// Call Fetch Event
+self.addEventListener('fetch', e => {
+	console.log('Service Worker: Fetching');
+	e.respondWith(
+		fetch(e.request)
+		.then(res => {
+			// The response is a stream and in order the browser
+			// to consume the response and in the same time the
+			// cache consuming the response it needs to be
+			// cloned in order to have two streams.
+			const resClone = res.clone();
+			// Open cache
+			caches.open(cacheName)
+				.then(cache => {
+					// Add response to cache
+					cache.put(e.request, resClone);
+				});
+			return res;
+		}).catch(
+			err => caches.match(e.request)
+			.then(res => res)
+		)
+	);
 });
