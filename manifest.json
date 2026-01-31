@@ -1,7 +1,7 @@
 {
-  "name": "Quote Web APP",
-  "short_name": "Quote APP",
-  "description": "A quote app for marketing manager",
+  "name": "EAF's Quotation Web App",
+  "short_name": "Quotation Web App",
+  "description": "A quotation web app for marketing manager",
   "start_url": "/QuotationWebAPP/",
   "display": "standalone",
   "fullscreen": true,
