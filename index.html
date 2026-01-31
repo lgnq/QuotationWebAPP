@@ -46,10 +46,8 @@
     <div class="title">Quote Web APP</div>
     <!-- 实时汇率区域 -->
     <div class="rate-wrap">
-      <div class="rate-text">Exchange Rate（1 EUR = ? CNY）</div>
+      <div class="rate-text">Exchange Rate（1 EUR = <span id="eurCnyRate" class="rate-val">7.80</span> CNY）@ <span id="date"></span></div>
       <div>
-        <span id="date" class="rate-val"></span>
-        <span id="eurCnyRate" class="rate-val">7.80</span>
         <button class="refresh-btn" id="refreshRate">刷新</button>
       </div>
     </div>
