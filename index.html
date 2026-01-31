@@ -395,9 +395,9 @@
     function disti_margin_onchange(){
       margin = parseFloat(disti_margin.value)
 
-      eur_cost = parseFloat(eurCost.value);
-      usd_cost = parseFloat(usdCost.value);
-      cny_cost = parseFloat(cnyCost.value);
+      eur_cost = parseFloat(eurCost.value) || 0;
+      usd_cost = parseFloat(usdCost.value) || 0;
+      cny_cost = parseFloat(cnyCost.value) || 0;
 
       eur_sell = (eur_cost / (1-margin)).toFixed(fixed_number); // 欧元卖价
       usd_sell = (usd_cost / (1-margin)).toFixed(fixed_number);
