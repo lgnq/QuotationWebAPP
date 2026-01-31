@@ -166,7 +166,7 @@
 
     // 拉取实时欧元兑人民币汇率（使用免费公开API，无跨域）
     function getRealTimeRate() {
-      eurCnyRate.innerHTML = '<span class="loading">刷新中...</span>';
+      eurCnyRate.innerHTML = '<span class="loading">loading...</span>';
       // 免费API：exchangerate-api，默认拉取最新EUR/CNY
       fetch('https://api.exchangerate-api.com/v4/latest/EUR')
         .then(res => res.json())
