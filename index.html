@@ -14,7 +14,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
     body { background: #f5f7fa; height: 100vh; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
-    .card { background: #fff; border-radius: 18px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .card { background: #fff; border-radius: 0px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
     .title { font-size: 18px; font-weight: 600; color: #165DFF; margin-bottom: 20px; }
     .rate-wrap { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; }
     .rate-text { font-size: 15px; color: #666; }
@@ -31,8 +31,8 @@
     .result-label { font-size: 15px; color: #666; }
     .result-value { font-size: 18px; font-weight: 600; color: #165DFF; }
     /* 数字键盘 */
-    .keyboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; flex: 0 0 auto; }
-    .key { padding: 10px 0; font-size: 30px; font-weight: 500; border: none; border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
+    .keyboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0px; flex: 0 0 auto; }
+    .key { padding: 10px 0; font-size: 30px; font-weight: 500; border: none; border-radius: 0px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
     .key:active { background: #f1f5f9; transform: scale(0.98); }
     .key.clear { background: #ff4d4f; color: #fff; }
     /* 隐藏系统输入法 */
@@ -116,7 +116,7 @@
   </div>
 
   <!-- 数字键盘 -->
-  <div class="card keyboard">
+  <div class="keyboard">
     <button class="key" data-val="1">1</button>
     <button class="key" data-val="2">2</button>
     <button class="key" data-val="3">3</button>
