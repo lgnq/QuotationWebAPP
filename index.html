@@ -21,7 +21,7 @@
     .rate-val { font-size: 17px; font-weight: 600; color: #165DFF; }
     .refresh-btn { padding: 6px 12px; border: 1px solid #165DFF; border-radius: 8px; color: #165DFF; font-size: 14px; background: #fff; cursor: pointer; }
     .input-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .input-item label { width: 90px; font-size: 15px; color: #444; }
+    .input-item label { width: 150px; font-size: 17px; color: #444; }
     .input-item input { flex: 1; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 17px; text-align: right; outline: none; }
     .input-item input:focus { border-color: #165DFF; }
     .input-item select { flex: 1; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 17px; text-align: right; outline: none; }
@@ -53,15 +53,15 @@
     </div>
     <!-- 输入区域 -->
     <div class="input-item">
-      <label>EUR Cost</label>
+      <label>EUR Disti Cost</label>
       <input type="text" style="color: red;" id="eurCost" readonly placeholder="0.000" onfocus="focus_eur_cost()"/>
     </div>
     <div class="input-item">
-      <label>USD Cost</label>
+      <label>USD Disti Cost</label>
       <input type="text" id="usdCost" readonly placeholder="0.000" onfocus="focus_usd_cost()"/>
     </div>    
     <div class="input-item">
-      <label>CNY Cost</label>
+      <label>CNY Disti Cost</label>
       <input type="text" id="cnyCost" readonly placeholder="0.000" onfocus="focus_cny_cost()"/>
     </div>
     <div class="input-item">
@@ -82,19 +82,19 @@
       </select>
     </div>
     <div class="input-item">
-      <label>EUR Sell</label>
+      <label>EUR Resale Price</label>
       <input type="text" id="eurSell" readonly placeholder="0.000" onfocus="focus_eur_sell()"/>
     </div>
     <div class="input-item">
-      <label>USD Sell</label>
+      <label>USD Resale Price</label>
       <input type="text" id="usdSell" readonly placeholder="0.000" onfocus="focus_usd_sell()"/>
     </div>    
     <div class="input-item">
-      <label>CNY Sell</label>
+      <label>CNY Resale Price</label>
       <input type="text" id="cnySell" readonly placeholder="0.000" onfocus="focus_cny_sell()"/>
     </div>    
     <div class="input-item">
-      <label>CNY VAT Sell</label>
+      <label>CNY Resale Price 13% VAT</label>
       <input type="text" id="cnyvatSell" readonly placeholder="0.000" onfocus="focus_cny_vat_sell()"/>
     </div>        
     <!-- 计算结果 -->
