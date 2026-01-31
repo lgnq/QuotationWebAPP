@@ -8,12 +8,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-touch-fullscreen" content="yes">
   <meta name="theme-color" content="#165DFF">
-  <title>Quote Web APP</title>
+  <title>Quotation Web App</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="https://picsum.photos/180/180">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
-    body { background: #f5f7fa; height: 100vh; padding: 16px 16px 80px 16px; display: flex; flex-direction: column; gap: 16px; }
+    body { background: #f5f7fa; height: 100vh; padding: 16px 16px 16px 16px; display: flex; flex-direction: column; gap: 16px; }
     .card { background: #fff; border-radius: 0px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
     .title { font-size: 18px; font-weight: 600; color: #165DFF; margin-bottom: 20px; }
     .rate-wrap { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; }
@@ -43,7 +43,7 @@
 </head>
 <body>
   <div class="card" style="flex: 1; display: flex; flex-direction: column;">
-    <div class="title">EAF's Quotation Web App</div>
+    <div class="title">Quotation Web App</div>
     <!-- 实时汇率区域 -->
     <div class="rate-wrap">
       <div class="rate-text">Exchange Rate（1 EUR = <span id="eurCnyRate" class="rate-val">7.80</span> CNY）@ <span id="date"></span></div>
@@ -130,6 +130,8 @@
     <button class="key" data-val=".">.</button>
     <button class="key clear" id="clearKey">C</button>
   </div>
+
+  <p style="color: gray;">eaf@melexis.com 2026</p>
 
   <script>
     // DOM元素
