@@ -43,29 +43,29 @@
 </head>
 <body>
   <div class="card" style="flex: 1; display: flex; flex-direction: column;">
-    <div class="title">Quote Web APP</div>
+    <div class="title">EAF's Quotation Web App</div>
     <!-- 实时汇率区域 -->
     <div class="rate-wrap">
       <div class="rate-text">Exchange Rate（1 EUR = <span id="eurCnyRate" class="rate-val">7.80</span> CNY）@ <span id="date"></span></div>
       <div>
-        <button class="refresh-btn" id="refreshRate">刷新</button>
+        <button class="refresh-btn" id="refreshRate">Refresh</button>
       </div>
     </div>
     <!-- 输入区域 -->
     <div class="input-item">
-      <label>欧元成本</label>
+      <label>EUR Cost</label>
       <input type="text" style="color: red;" id="eurCost" readonly placeholder="0.000" onfocus="focus_eur_cost()"/>
     </div>
     <div class="input-item">
-      <label>美元成本</label>
+      <label>USD Cost</label>
       <input type="text" id="usdCost" readonly placeholder="0.000" onfocus="focus_usd_cost()"/>
     </div>    
     <div class="input-item">
-      <label>人民币成本</label>
+      <label>CNY Cost</label>
       <input type="text" id="cnyCost" readonly placeholder="0.000" onfocus="focus_cny_cost()"/>
     </div>
     <div class="input-item">
-      <label>利润率(%)</label>
+      <label>Disti Margin(%)</label>
       <!-- <input type="number" id="profitRate" value="15" readonly placeholder="请输入利润率" /> -->
       <select id="disti_margin" onchange="disti_margin_onchange()">
         <option value=0.05>5%</option>
@@ -82,19 +82,19 @@
       </select>
     </div>
     <div class="input-item">
-      <label>欧元卖价</label>
+      <label>EUR Sell</label>
       <input type="text" id="eurSell" readonly placeholder="0.000" onfocus="focus_eur_sell()"/>
     </div>
     <div class="input-item">
-      <label>美元卖价</label>
+      <label>USD Sell</label>
       <input type="text" id="usdSell" readonly placeholder="0.000" onfocus="focus_usd_sell()"/>
     </div>    
     <div class="input-item">
-      <label>人民币卖价</label>
+      <label>CNY Sell</label>
       <input type="text" id="cnySell" readonly placeholder="0.000" onfocus="focus_cny_sell()"/>
     </div>    
     <div class="input-item">
-      <label>人民币含税价</label>
+      <label>CNY VAT Sell</label>
       <input type="text" id="cnyvatSell" readonly placeholder="0.000" onfocus="focus_cny_vat_sell()"/>
     </div>        
     <!-- 计算结果 -->
